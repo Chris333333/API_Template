@@ -3,7 +3,6 @@ using System.Net;
 using System.Text.Json;
 using Serilog;
 
-
 namespace API_Template.Middleware
 {
     /// <summary>

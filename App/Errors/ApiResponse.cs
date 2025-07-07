@@ -22,7 +22,7 @@ public class ApiResponse
     /// </summary>
     /// <param name="statusCode"> We pass here a status code of an error that happened</param>
     /// <returns>Custom error message</returns>
-    private string? GetDefaultMessageForStatusCode(int statusCode)
+    private static string? GetDefaultMessageForStatusCode(int statusCode)
     {
         return statusCode switch
         {

@@ -4,12 +4,21 @@ using AutoMapper;
 using Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace NatCMMS_API.Controllers.Base;
+namespace API_Template.Controllers.Base;
 
 public class BaseMappingApiController(IMapper mapper) : BaseApiController
 {
     protected readonly IMapper _mapper = mapper;
 
+    /// <summary>
+    /// Add an entity with mapping
+    /// Can be created while calling await AddEntity<MainSignal, ScadaSignalsDTO>(_signalsRepo, dto);
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TDto"></typeparam>
+    /// <param name="repository"></param>
+    /// <param name="dto"></param>
+    /// <returns></returns>
     protected async Task<ActionResult<T>> AddEntity<T, TDto>(IGenericRepository<T> repository, TDto dto) where T : class
     {
         var entity = _mapper.Map<T>(dto);
@@ -39,6 +48,15 @@ public class BaseMappingApiController(IMapper mapper) : BaseApiController
         return Ok(result);
     }
 
+    /// <summary>
+    /// Get an entity with specification and map it to a DTO.
+    /// This method is used to retrieve a single entity based on the provided specification and map it to a DTO.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TDto"></typeparam>
+    /// <param name="repository"></param>
+    /// <param name="spec"></param>
+    /// <returns></returns>
     protected async Task<ActionResult<TDto>> GetMappedEntityWithSpec<T, TDto>(IGenericRepository<T> repository, ISpecification<T> spec) where T : class
     {
         var entity = await repository.GetEntityWithSpec(spec);

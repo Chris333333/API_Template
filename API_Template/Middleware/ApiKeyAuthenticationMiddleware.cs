@@ -1,6 +1,3 @@
-using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
-
 namespace API_Template.Middleware
 {
     public class ApiKeyAuthenticationMiddleware(RequestDelegate next)

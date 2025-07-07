@@ -20,7 +20,6 @@ namespace App.Spec
             }
             if (spec.OrderByDescending != null)
             {
-                //This checks if it is setup to order by descending
                 query = query.OrderByDescending(spec.OrderByDescending);
             }
             if (spec.IsDistinct)
@@ -59,7 +58,6 @@ namespace App.Spec
             }
             if (spec.OrderByDescending != null)
             {
-                //This checks if it is setup to order by descending
                 query = query.OrderByDescending(spec.OrderByDescending);
             }
 
