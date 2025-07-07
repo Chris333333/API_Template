@@ -52,6 +52,8 @@ var app = builder.Build();
 // Add middleware for exception handling
 app.UseMiddleware<ExceptionMiddleware>();
 
+app.UseMiddleware<ApiKeyAuthenticationMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
