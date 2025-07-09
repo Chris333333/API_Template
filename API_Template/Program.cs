@@ -39,9 +39,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(MainProfile));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 // Register DbContext with MariaDB server version
-var serverVersionSUAT = new MariaDbServerVersion(new Version(11, 4, 2));
-builder.Services.AddDbContext<ExampleDbContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("ExampleContext"), serverVersionSUAT));
+var serverVersion = new MariaDbServerVersion(new Version(11, 4, 2));
+//TODO: Setup connection string in appsettings.Development.json
+builder.Services.AddDbContext<ExampleDbContext>(options => options.UseMySql(builder.Configuration.GetConnectionString("ExampleContext"), serverVersion));
 // Register the generic repository
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
@@ -52,14 +52,13 @@ var app = builder.Build();
 // Add middleware for exception handling
 app.UseMiddleware<ExceptionMiddleware>();
 
-app.UseMiddleware<ApiKeyAuthenticationMiddleware>();
-
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
 }
 else
 {
+    app.UseMiddleware<ApiKeyAuthenticationMiddleware>();
     app.UseExceptionHandler("/error");
 }
 
